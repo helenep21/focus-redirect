@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Auth Redirect</title></head>
+<body>
+  <script>
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const token = params.get("access_token");
+    if (token && window.opener) {
+      window.opener.postMessage({ type: "OAUTH_TOKEN", token }, "*");
+      window.close();
+    } else {
+      document.body.innerText = "Auth failed. Close this tab.";
+    }
+  </script>
+</body>
+</html>
